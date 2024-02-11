@@ -8,12 +8,14 @@ import { Avatar } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { Pagination } from "@mui/material";
 import { UserListContext } from "../utils/UserListContext";
-
+import { useNavigate } from "react-router";
 
 const UserList = (props) => {
   let startIndex = 0;
   let limitPerPage = 28;
   let endIndex = limitPerPage;
+
+  const navigate = useNavigate();
 
   const userListContext = useContext(UserListContext);
   let userList = userListContext.githubUserList;
@@ -44,11 +46,8 @@ const UserList = (props) => {
   }
 
   function onUserClick(userDetails) {
-    console.log(userDetails);
+    navigate("/user-details/" + userDetails.id);
   }
-  
-
-  
 
   return (
     <ContainerItem fixed>

@@ -2,6 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Octokit } from "octokit";
 import UserList from "./components/UserList";
+import UserDetails from "./components/UserDetails";
 
 import { UserListContext } from "./utils/UserListContext";
 import { CircularProgress } from "@mui/material";
@@ -38,6 +39,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<UserList />} />
+          <Route path="/user-details/:id" element={<UserDetails />} />
         </Routes>
       </BrowserRouter>
     </UserListContext.Provider>
