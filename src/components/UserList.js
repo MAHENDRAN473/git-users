@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -7,15 +7,21 @@ import Container from "@mui/material/Container";
 import { Avatar } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { Pagination } from "@mui/material";
+import { UserListContext } from "../utils/UserListContext";
 
-const UserList = ({ userList }) => {
+
+const UserList = (props) => {
   let startIndex = 0;
   let limitPerPage = 28;
   let endIndex = limitPerPage;
 
+  const userListContext = useContext(UserListContext);
+  let userList = userListContext.githubUserList;
+
   const [displayList, setDisplayList] = useState(
     userList.slice(startIndex, limitPerPage)
   );
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -37,6 +43,13 @@ const UserList = ({ userList }) => {
     setCurrentPage(value);
   }
 
+  function onUserClick(userDetails) {
+    console.log(userDetails);
+  }
+  
+
+  
+
   return (
     <ContainerItem fixed>
       <Stack justifyContent="center" alignItems="center">
@@ -44,7 +57,12 @@ const UserList = ({ userList }) => {
           <Grid container spacing={2}>
             {displayList.map((userDetails) => (
               <Grid item xs={3}>
-                <Item>
+                <Item
+                  onClick={() => {
+                    onUserClick(userDetails);
+                  }}
+                  sx={{ cursor: "pointer" }}
+                >
                   <Stack
                     spacing={2}
                     justifyContent="center"

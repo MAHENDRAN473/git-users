@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
 export const UserListContext = createContext({
-  userList: [],
-  updateUserList: () => {},
+  githubUserList: [],
+  setGithubUserList: () => {},
 });

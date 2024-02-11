@@ -4,10 +4,9 @@ import { Octokit } from "octokit";
 import UserList from "./components/UserList";
 
 import { UserListContext } from "./utils/UserListContext";
-
-
-
-
+import { CircularProgress } from "@mui/material";
+import Box from "@mui/material/Box";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const octokit = new Octokit({});
@@ -26,9 +25,21 @@ function App() {
       });
   }, []);
 
+  if (!githubUserList.length) {
+    return (
+      <Box justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <UserListContext.Provider value={{ githubUserList, setGithubUserList }}>
-       {githubUserList.length && <UserList userList={githubUserList}></UserList>}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<UserList />} />
+        </Routes>
+      </BrowserRouter>
     </UserListContext.Provider>
   );
 }
